@@ -1,0 +1,48 @@
+html, body {	
+	padding: 1%;
+	height: 100%;
+}
+
+i {
+	margin: 0 0 -3px -5px;  
+	color: gray;
+}
+
+h1 {
+	margin-left: 20px;
+}
+
+
+#map {
+	height: 85%;
+	/*border: solid 1px black;*/
+}
+
+#forest {
+	margin-right: 5%;
+}
+
+.list-group p {
+	display: inline;
+	margin-left: 5px;
+}
+
+.list-group h5 {
+	display: inline;
+}
+
+.footer {
+	background-color: #F5F5F5;
+	height: 25px;
+	border-top: 1px solid gray;
+}
+
+.fa-twitter {
+	color: #55acee;
+}
+
+.tweet-item {
+	border-top: 1px solid #ddd;
+	padding-top: 10px;
+	margin: 5px 0;
+}

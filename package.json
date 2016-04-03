@@ -1,0 +1,31 @@
+{
+  "name": "snow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
+    "bootstrap": "^3.3.6",
+    "browserify": "^13.0.0",
+    "jquery": "^2.2.1",
+    "leaflet": "^0.7.7",
+    "react": "^0.14.8",
+    "react-bootstrap": "^0.28.5",
+    "react-dom": "^0.14.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattiaspalmgren/snow.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattiaspalmgren/snow/issues"
+  },
+  "homepage": "https://github.com/mattiaspalmgren/snow"
+}

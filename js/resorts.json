@@ -1,0 +1,251 @@
+module.exports = [
+	{
+		"name": "Adelboden/Lenk", 
+		"lon": 46.46,
+		"lat": 7.49
+	}, 
+	{
+		"name": "Amden", 
+		"lon": 47.1496,
+		"lat": 9.1411
+	},
+	{
+		"name": "Andermatt", 
+		"lon": 46.6347,
+		"lat": 8.5932
+	},
+	{
+		"name": "Arosa", 
+		"lon": 46.7767,
+		"lat": 9.6789
+	},		
+	{
+		"name": "Atzmännig", 
+		"lon": 47.2831,
+		"lat": 8.9953
+	},	
+	{
+		"name": "Axalp", 
+		"lon": 46.71,
+		"lat": 8.03
+	},	
+	{
+		"name": "Braunwald", 
+		"lon": 46.9506,
+		"lat": 8.9932
+	},		
+	{
+		"name": "Breil/Brigels", 
+		"lon": 46.774,
+		"lat": 9.0678
+	},
+	{
+		"name": "Chur", 
+		"lon": 46.8178,
+		"lat": 9.5874
+	},
+	{
+		"name": "Davos", 
+		"lon": 46.8078,
+		"lat": 9.8312
+	},
+	{
+		"name": "Disentis/Mustér", 
+		"lon": 46.7041,
+		"lat": 8.8359
+	},
+	{
+		"name": "Engelberg/Titlis", 
+		"lon": 46.8015,
+		"lat": 8.4146
+	},
+	{
+		"name": "Flims/Laax",
+		"lon": 46.8341,
+		"lat": 9.273
+	},
+	{
+		"name": "Flumserberg", 
+		"lon": 47.0825,
+		"lat": 9.266
+	},
+	{
+		"name": "Glacier3000/Gstaad", 
+		"lon": 46.3500,
+		"lat": 7.220
+	},
+	{
+		"name": "Grimentz", 
+		"lon": 46.1798,
+		"lat": 7.5513
+	},
+	{
+		"name": "Hoch/Ybrig", 
+		"lon": 47.0054,
+		"lat": 8.7949
+	},
+	{
+		"name": "Klosters", 
+		"lon": 46.8833,
+		"lat": 9.8833
+	},		
+	{
+		"name": "Lenk Walegg", 
+		"lon": 46.44407,
+		"lat": 7.42398
+	},
+	{
+		"name": "Lenzerheide", 
+		"lon": 46.7235,
+		"lat": 9.5775
+	},
+	{
+		"name": "Meiringen-Hasliberg", 
+		"lon": 46.7433,
+		"lat": 8.2284
+	},
+	{
+		"name": "Melchsee/Frutt", 
+		"lon": 46.7858,
+		"lat": 8.2781
+	},
+	{
+		"name": "Obersaxen", 
+		"lon": 46.7333,
+		"lat": 9.1
+	},	
+	{
+		"name": "Pizol", 
+		"lon": 47.0022,
+		"lat": 9.4388
+	},
+	{
+		"name": "Quattre Vallees", 
+		"lon": 46.1058,
+		"lat": 7.2886
+	},
+	{
+		"name": "Riaz Fri", 
+		"lon": 46.6507,
+		"lat": 7.0173
+	},
+	{
+		"name": "Rigi", 
+		"lon": 47.0480,
+		"lat": 8.4861
+	},
+	{
+		"name": "Rosswald", 
+		"lon": 46.3096,
+		"lat": 8.059
+	},
+	{
+		"name": "Rothenthurm", 
+		"lon": 47.1165,
+		"lat": 8.6826
+	},
+	{
+		"name": "Saas-Fee", 
+		"lon": 46.095,
+		"lat": 7.90879
+	},
+	{
+		"name": "Samedan", 
+		"lon": 46.5333,
+		"lat": 9.8666
+	},
+	{
+		"name": "Samnaun", 
+		"lon": 46.9333,
+		"lat": 10.35
+	},		
+	{
+		"name": "San Bernardino", 
+		"lon": 46.46022,
+		"lat": 9.17791
+	},
+	{
+		"name": "Savognin", 
+		"lon": 46.5833,
+		"lat": 9.5833
+	},		
+	{
+		"name": "Schwarzsee", 
+		"lon": 46.6587,
+		"lat": 7.29025
+	},
+	{
+		"name": "Sedrun/Oberalp", 
+		"lon": 46.659,
+		"lat": 8.671
+	},
+	{
+		"name": "Sörenberg", 
+		"lon": 46.816,
+		"lat": 8.0149
+	},
+	{
+		"name": "Splügen", 
+		"lon": 46.55,
+		"lat": 9.3166
+	},
+	{
+		"name": "St. Moritz" ,
+		"lon": 46.5,
+		"lat": 9.8333
+	},
+	{
+		"name": "Super St-Bernard", 
+		"lon": 45.89,
+		"lat": 7.20
+	},
+	{
+		"name": "Torgon", 
+		"lon": 46.28,
+		"lat": 6.85
+	},
+	{
+		"name": "Tschiertschen", 
+		"lon": 46.8116,
+		"lat": 9.6068
+	},
+	{
+		"name": "Toggenburg", 
+		"lon": 47.187,
+		"lat": 9.3349
+	},
+	{
+		"name": "Val Lumnezia",
+		"lon": 46.6166,
+		"lat": 9.15
+	},
+	{
+		"name": "Vichères/Liddes", 
+		"lon": 45.975,
+		"lat": 7.145
+	},
+	{
+		"name": "Wolzenalp", 
+		"lon": 47.2257,
+		"lat": 9.1553
+	},
+	{
+		"name": "Zermatt", 
+		"lon": 46.022,
+		"lat": 7.7487
+	},
+	{
+		"name": "Zernez", 
+		"lon": 46.7,
+		"lat": 10.1
+	},
+	{
+		"name": "Zinal", 
+		"lon": 46.1347,
+		"lat": 7.6258
+	},
+	{
+		"name": "Zuoz", 
+		"lon": 46.6,
+		"lat": 9.9666
+	}]

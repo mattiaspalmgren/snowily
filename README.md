@@ -1,3 +1,1 @@
-# snow
-# snowily
 # snowily
