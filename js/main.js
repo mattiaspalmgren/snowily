@@ -1,7 +1,8 @@
-//browserify js/main.js > js/bundle.js
+// -- Inte react - browserify js/main.js > js/bundle.js
 //watchify js/main.js -o js/bundle.js -v
 //supervisor server.js
-// browserify -t [ babelify --presets [ react ] ] js/main.js -o js/bundle.js
+//browserify -t [ babelify --presets [ react ] ] js/main.js -o js/bundle.js
+//watchify -t [ babelify --presets [ react ] ] js/main.js -o js/bundle.js
 
 var $ = require('jquery');
 var React = require('react');

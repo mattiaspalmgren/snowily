@@ -9,12 +9,13 @@ i {
 }
 
 h1 {
-	margin-left: 20px;
+	margin-left: 2%;
 }
 
 
 #map {
 	height: 85%;
+	border-left: 1px solid gray;
 	/*border: solid 1px black;*/
 }
 

@@ -10,6 +10,8 @@
     "browserify": "^13.0.0",
     "jquery": "^2.2.1",
     "leaflet": "^0.7.7",
+    "mapbox": "^1.0.0-beta",
+    "mapbox.js": "^2.4.0",
     "react": "^0.14.8",
     "react-bootstrap": "^0.28.5",
     "react-dom": "^0.14.8"
