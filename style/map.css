@@ -1,6 +1,7 @@
 html, body {	
 	padding: 1%;
 	height: 100%;
+	width: 100%;
 }
 
 i {
@@ -9,14 +10,43 @@ i {
 }
 
 h1 {
-	margin-left: 2%;
+	padding-left: 2%;
 }
 
+.container {
+	height: 100%;
+}
+
+/*Height grid*/
+.top {
+	height: 10%;
+}
+
+.content {
+	height: 85%;
+}
+
+.footer {
+	background-color: #F5F5F5;
+	height: 5%;
+	border-top: 1px solid gray;
+}
 
 #map {
-	height: 85%;
+	height: 60%;
 	border-left: 1px solid gray;
-	/*border: solid 1px black;*/
+}
+
+#stats {
+	height: 40%;
+}
+
+.bar {
+  fill: gray;
+}
+
+.bar:hover {
+  fill: #3E606F;
 }
 
 #forest {
@@ -32,11 +62,6 @@ h1 {
 	display: inline;
 }
 
-.footer {
-	background-color: #F5F5F5;
-	height: 25px;
-	border-top: 1px solid gray;
-}
 
 .fa-twitter {
 	color: #55acee;

@@ -9,6 +9,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactBootstrap = require('react-bootstrap')
 map = require('./map')
+stats = require('./stats')
+
 
 var ListGroup = ReactBootstrap.ListGroup, ListGroupItem= ReactBootstrap.ListGroupItem, Panel= ReactBootstrap.Panel;
 
@@ -69,8 +71,6 @@ ReactDOM.render(
   document.getElementById('resort-table')
 );
 
-map.initMap(toggleFocus);
-
 function toggleFocus(e) {
 	
   	$("#resortName").text(e.target.options.title);    
@@ -127,6 +127,24 @@ function toggleFocus(e) {
        }
     });  
 }
+
+var markerLayer = map.initMap(toggleFocus);
+var geojson = map.getGeojson();
+
+function hover(d, bool) {
+  var geojson = map.getGeojson();
+  if(!bool) {
+    for (var i = 0; i < geojson.features.length; i++) {
+      if(geojson.features[i].properties.name === d.name) {
+        geojson.features[i].properties["marker-color"] = '#3E606F';
+        geojson.features[i].properties["marker-size"] = 'large';
+      }
+    }
+  } 
+  markerLayer.setGeoJSON(geojson);
+};
+
+stats.initChart(hover);
 
 function findResort(resortName) {
 	for(var i = 0; i < map.resortData.length; i++) {
