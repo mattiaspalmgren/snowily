@@ -33,12 +33,12 @@ h1 {
 }
 
 #map {
-	height: 60%;
+	height: 70%;
 	border-left: 1px solid gray;
 }
 
 #stats {
-	height: 40%;
+	height: 30%;
 }
 
 .bar {
@@ -53,22 +53,3 @@ h1 {
 	margin-right: 5%;
 }
 
-.list-group p {
-	display: inline;
-	margin-left: 5px;
-}
-
-.list-group h5 {
-	display: inline;
-}
-
-
-.fa-twitter {
-	color: #55acee;
-}
-
-.tweet-item {
-	border-top: 1px solid #ddd;
-	padding-top: 10px;
-	margin: 5px 0;
-}

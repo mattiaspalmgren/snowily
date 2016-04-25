@@ -6,7 +6,7 @@ require('mapbox.js')
 GeoJSON = require('geojson');
 
 
-var initMap = function(toggleFocus) {
+var initMap = function() {
 	L.mapbox.accessToken = cred.map.access_token;
 
 	var map = L.mapbox.map('map')
@@ -18,6 +18,9 @@ var initMap = function(toggleFocus) {
 
 	var markerLayer = L.mapbox.featureLayer().addTo(map);
 	markerLayer.setGeoJSON(geojson);
+
+	var usLayer = omnivore.topojson('./data/ch-contours.json')
+	    .addTo(map);
 
 	return markerLayer;	
 }
