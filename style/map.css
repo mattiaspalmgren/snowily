@@ -34,22 +34,23 @@ h1 {
 
 #map {
 	height: 70%;
-	border-left: 1px solid gray;
+	/*border-left: 1px solid gray;*/
 }
 
-#stats {
-	height: 30%;
+.snowType {
+	background-color: blue;
 }
 
-.bar {
-  fill: gray;
+.contour {
+  stroke-width: 0.5;
 }
 
-.bar:hover {
-  fill: #3E606F;
+.key path {
+  display: none;
 }
 
-#forest {
-	margin-right: 5%;
+.key line {
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
 
