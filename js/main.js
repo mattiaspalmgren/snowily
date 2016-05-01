@@ -35,10 +35,4 @@ ReactDOM.render(
   document.getElementById('resort-table')
 );
 
-function findResort(resortName) {
-	for(var i = 0; i < map.resortData.length; i++) {
-		if(resortName == map.resortData[i].name)
-			return map.resortData[i];
-	}
-}
 

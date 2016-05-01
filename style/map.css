@@ -33,7 +33,7 @@ h1 {
 }
 
 #map {
-	height: 70%;
+	height: 90%;
 	/*border-left: 1px solid gray;*/
 }
 
@@ -45,6 +45,10 @@ h1 {
   stroke-width: 0.5;
 }
 
+.contour:hover {
+  fill: red;
+}
+
 .key path {
   display: none;
 }
@@ -53,4 +57,6 @@ h1 {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+
 
