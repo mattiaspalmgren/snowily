@@ -11,8 +11,9 @@ var initMap = function() {
 
     var width = $("#map").width(),
         height = $("#map").height(),
-        thresholds = [0.02, 0.04, 0.06, 0.08, 0.10],
-        colors = ["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"],
+        snowtypes = ["SLUSH", "CRUSH", "CRUD", "POWDER"],
+        thresholds = [0.2, 0.4, 0.6, 0.8],
+        colors = ["#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"],
         contour;
 
     // var interpolateColor = d3.interpolateHcl("#FCFFF5", "#193441");s
@@ -37,46 +38,59 @@ var initMap = function() {
 
     // var xAxis_length = width*0.7;
     // var x = d3.scale.linear()
-    //   .domain([0, 4500])
+    //   .domain([0, 1])
     //   .range([0, xAxis_length]);
 
     // var xAxis = d3.svg.axis()
     //   .scale(x)
     //   .orient("bottom")
     //   .tickSize(10)
-    //   .tickFormat(d3.format(".0f"));
+    //   .tickFormat(d3.format("s"));
 
     var path = d3.geo.path()
             .projection(projection);
 
     var map = svg.append("g");
 
-    // var key = svg.append("g")
-    //   .attr("class", "key")
-    //   .attr("transform", "translate(" + ((width - xAxis_length)/2) + "," + (height - 30) + ")");
+    var key = svg.append("g")
+      .attr("class", "key")
+      .attr("transform", "translate(" + width + "," + (height - 30) + ")");
 
-    // key.append("rect")
-    //   .attr("x", -10)
-    //   .attr("y", -10)
-    //   .attr("width", 310)
-    //   .attr("height", 40)
-    //   .style("fill", "white")
-    //   .style("fill-opacity", 0.5)
+    var rectW = 80;
+    var rectH = 50;
+    var rectangle = svg.selectAll(".rects")
+        .data(snowtypes)
+        .enter()
+        .append("rect")
+        .attr("width", rectW)//
+        .attr("height", rectH)
+        .attr("x",function(d,i){return 130+i*rectW*1.2;})
+        .attr("y", height-rectH)
+        .attr("fill", function(d, i) {return colors[i+1]})
+
+    var texts = svg.selectAll(".texts")
+        .data(snowtypes)
+        .enter()
+        .append("text")
+        .attr("width", rectW)
+        .attr("height", 20)
+        .attr("x",function(d,i){return 130+i*rectW*1.2+5;})
+        .attr("y", height-20)
+        .attr("fill", "white")
+        .text(function(d) {return d})
+        .style("font-size",15)
+        .style("font-weight", "bold");
 
     // key.selectAll(".band")
     //   .data(d3.pairs(x.ticks(10)))
     // .enter().append("rect")
     //   .attr("class", "band")
-    //   .attr("height", 8)
+    //   .attr("height", 7)
     //   .attr("x", function(d) { return x(d[0]); })
     //   .attr("width", function(d) { return x(d[1]) - x(d[0]); })
     //   .style("fill", function(d) { return color(d[0]); });
 
     // key.call(xAxis);
-
-// Samnaun
-
-
 
     q.queue()
         .defer(d3.json, "data/ch-municipalities_mod.json")
@@ -88,7 +102,7 @@ var initMap = function() {
       if (error) throw error;
         
         var rateById = {};
-        resorts.forEach(function(d) { rateById[d.name] = +d.temp; });
+        resorts.forEach(function(d) { rateById[d.name] = +d.temp*10; });
         
         map.selectAll(".country")
           .data(topojson.feature(country, country.objects.country).features)

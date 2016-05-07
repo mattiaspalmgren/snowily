@@ -117,17 +117,17 @@ module.exports = [
 		"name": "Zermatt", 
 		"lat": 46.022,
 		"lon": 7.7487,
-		"temp": 0.1
+		"temp": 0.08
 	},
 	{
 		"name": "Zernez", 
 		"lat": 46.7,
 		"lon": 10.1,
-		"temp": 0.1
+		"temp": 0.08
 	},
 	{
 		"name": "Zuoz", 
 		"lat": 46.6,
 		"lon": 9.9666,
-		"temp": 0.1
+		"temp": 0.08
 	}]
