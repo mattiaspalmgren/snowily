@@ -75,6 +75,10 @@
 		
 	},
 	{
+		"name" : "Grimentz",
+		"lonLat" : [7.5513, 46.1798]
+	},
+	{
 		"name": "Hoch/Ybrig", 
 		"lonLat": [8.7949,47.0054]
 		
