@@ -4,7 +4,6 @@ function getResortWithSnowTypes(resort) {
 	for (var i = 0; i < resort.vertices.length; i++) {
 		resort.vertices[i].snow = snowtypes[Math.floor((Math.random() * snowtypes.length))];
 	}
-	console.log(resort);
 	return resort;
 }
 

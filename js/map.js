@@ -39,9 +39,11 @@ var initMap = function() {
       if (error) throw error;
 
         griments = grimentsStatic[0];
+        var griments = snowtypes.getResortWithSnowTypes(griments);
+        
         var edgeArr = createEdgeArray(griments.edges, griments.vertices);
-        var snowArr = snowtypes.getResortWithSnowTypes(griments);
-
+       
+        // Draws the country lines
         map.selectAll(".country")
           .data(topojson.feature(country, country.objects.country).features)
         .enter().append("path")
@@ -50,6 +52,7 @@ var initMap = function() {
           .style("fill", "#DCEAF2")
           .style("stroke", "black");
 
+        //Draws all the resort
         map.selectAll("resorts")
             .data(resorts).enter()
             .append("rect")
@@ -60,6 +63,7 @@ var initMap = function() {
             .attr("height", 10)
             .on("click", clicked);
 
+        //Draws the snowareas in forms of lines for Griments
         map.selectAll("line")
             .data(edgeArr)
             .enter()
@@ -72,15 +76,16 @@ var initMap = function() {
             .attr("stroke", "#91AA9D")
             .style("opacity", 0);
 
-        map.selectAll("rects")
+        //Draws the vertices for griments
+        map.selectAll("griments")
            .data(griments.vertices).enter()
            .append("rect")
            .attr("class", "grimentz")
            .attr("x", function (d) { return projection(d.lonLat)[0]-0.0625; })
            .attr("y", function (d) { return projection(d.lonLat)[1]-0.0625; })
            .attr("fill", function (d) { return d.snow.color})
-           .attr("width", 0.1)
-           .attr("height", 0.1)
+           .attr("width", 0.2)
+           .attr("height", 0.2)
            .style("opacity", 0)
            .on("click", clicked);
 
@@ -135,30 +140,73 @@ var initMap = function() {
 function findVertex(arr, el) {
     for (var i = 0; i < arr.length; i++) {
         if(arr[i].name == el)
-            return arr[i].lonLat;
+            return arr[i];
     }
     return -1;
 }
 
 function createEdgeArray(edgeArr, vertexArr) {
 
-    var res = [];
+    //Create edgeArrar with included vertices
+    var tmpArr = [];
     for (var i = 0; i < edgeArr.length; i++) {
-        
-        var start = findVertex(vertexArr, edgeArr[i].start);
-        start = projection(start);
-
-        var end = findVertex(vertexArr, edgeArr[i].end);
-        end = projection(end);
-        
-        res.push({start, end});
+        var s = findVertex(vertexArr, edgeArr[i].start);
+        var start = projection(s.lonLat);
+        var startSnow = s.snow;
+        var e = findVertex(vertexArr, edgeArr[i].end);
+        var end = projection(e.lonLat);
+        var endSnow = e.snow;
+        tmpArr.push({"start": start, "startSnow": startSnow, "end": end, "endSnow" :endSnow});
     }
+
+    //Divide the edges into segments if different snow at endpoints 
+    var res = [];
+    for (var i = 0; i < tmpArr.length; i++) {
+        var diff = Math.abs(tmpArr[i].endSnow.id-tmpArr[i].startSnow.id);
+        if (!diff) {
+          res.push({"start": tmpArr[i].start, "end": tmpArr[i].end, "snow": tmpArr[i].snow});
+        } 
+        else {
+          var segments = createSegments(tmpArr[i], diff);   
+          res = res.concat(segments);      
+        }
+    }
+
     return res;
+
+    //Help function tp create the segments
+    function createSegments(line, d) {
+      var x1 = line.start[0];
+      var y1 = line.start[1];
+      var x2 = line.end[0];
+      var y2 = line.end[1];
+
+      var k = (y2-y1)/(x2-x1);
+      var xRange = Math.abs(x2-x1);
+      var xStep = xRange/(d+1);
+
+      var segments = [];
+      for (var i = 0; i < d+1; i++) {
+        if((x2 - x1)>0) {
+          var oldX = x1+(i*xStep);
+          var newX = oldX+xStep;
+        } else {
+          var oldX = x1-(i*xStep);
+          var newX = oldX-xStep;
+        }
+        segments.push({"start": [oldX, y(oldX)], "end": [newX, y(newX)], "snow": line.snow});
+      }
+
+      return segments;
+
+      function y(x) {
+        return (k*(x - x1) + y1);
+      }
+    }
+
 }
 
 module.exports['initMap'] = initMap;
-
-
 
 
 
