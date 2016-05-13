@@ -1,4 +1,4 @@
-var snowtypes = [{"id":0, "name": "powder", "color": "#D1DBBD"}, {"id":1, "name": "crud", "color" : "#FCFFF5"}, {"id":2, "name": "crust", "color": "#3E606F"}, {"id":3, "name": "powder", "color" : "#193441"}];
+var snowtypes = [{"id":0, "name": "powder", "color": "#FCFFF5"}, {"id":1, "name": "crud", "color" : "#D1DBBD"}, {"id":2, "name": "crust", "color": "#91AA9D"}, {"id":3, "name": "slush", "color" : "#3E606F"}];
 
 function getResortWithSnowTypes(resort) {
 	for (var i = 0; i < resort.vertices.length; i++) {
@@ -35,7 +35,7 @@ function createEdgeArray(edgeArr, vertexArr, projection) {
     for (var i = 0; i < tmpArr.length; i++) {
         var diff = Math.abs(tmpArr[i].endSnow.id-tmpArr[i].startSnow.id);
         if (!diff) {
-          res.push({"start": tmpArr[i].start, "end": tmpArr[i].end, "snow": tmpArr[i].snow});
+          res.push({"start": tmpArr[i].start, "end": tmpArr[i].end, "snow": tmpArr[i].startSnow});
         } 
         else {
           var segments = createSegments(tmpArr[i], diff);   
@@ -51,6 +51,8 @@ function createEdgeArray(edgeArr, vertexArr, projection) {
       var y1 = line.start[1];
       var x2 = line.end[0];
       var y2 = line.end[1];
+      var startSnowId = line.startSnow.id;
+      var endSnowId = line.endSnow.id
 
       var k = (y2-y1)/(x2-x1);
       var xRange = Math.abs(x2-x1);
@@ -65,7 +67,10 @@ function createEdgeArray(edgeArr, vertexArr, projection) {
           var oldX = x1-(i*xStep);
           var newX = oldX-xStep;
         }
-        segments.push({"start": [oldX, y(oldX)], "end": [newX, y(newX)], "snow": line.snow});
+        
+        var newSnowId;
+        if(endSnowId > startSnowId){newSnowId = startSnowId+i} else {newSnowId = startSnowId-i};
+        segments.push({"start": [oldX, y(oldX)], "end": [newX, y(newX)], "snow": snowtypes[newSnowId]});
       }
 
       return segments;

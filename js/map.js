@@ -73,7 +73,7 @@ var initMap = function() {
             .attr("x2", function(d) { return d.end[0]})     
             .attr("y2", function(d) { return d.end[1]})
             .attr("stroke-width", 0.5)
-            .attr("stroke", "#91AA9D")
+            .attr("stroke", function(d) {return d3.rgb(d.snow.color).brighter(0.5)})
             .style("opacity", 0);
 
         //Draws the vertices for griments
@@ -116,7 +116,7 @@ var initMap = function() {
                 map.selectAll("line")
                     .transition()
                     .duration(750)
-                    .style("opacity", op);
+                    .style("opacity", op-0.2);
 
                 map.selectAll(".resort")
                     .transition()
