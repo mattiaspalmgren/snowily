@@ -3,19 +3,31 @@ var q = require('d3-queue');
 var topojson = require('topojson');
 var $ = require('jquery');
 snowtypes = require('./snowtypes');
+require('mapbox.js');
+cred = require('./config')
 
+var thresholds = [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000],
+    contour;
+
+var interpolateColor = d3.interpolateHcl("#455950", "#DFF0F2");
+
+var color = d3.scale.threshold()
+  .domain(thresholds)
+  .range(d3.range(thresholds.length + 1).map(function(d, i) { return interpolateColor(i / thresholds.length); }));
 
 var width = $("#map").width(),
     height = $("#map").height(),
-    colors = ["#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"],
     centered;
 
-var projection = d3.geo.albers()
+projection = d3.geo.albers()
     .rotate([0, 0])
-    .center([8.55, 46.8])
-    .scale(9000)
-    .translate([width / 2, height / 2])
+    .center([8.72, 47])
+    .scale(14000)
+    .translate([960/2, 500/2])
     .precision(.1);
+
+var null_path = d3.geo.path()
+  .projection(null);
 
 var svg = d3.selectAll("#map").append("svg")
   .attr("width", width)
@@ -33,9 +45,10 @@ var initMap = function() {
         .defer(d3.json, "data/griments.json")
         .defer(d3.json, "data/resorts.json")
         .defer(d3.json, "data/ch-country.json")
+        .defer(d3.json, "data/ch-contours_newproj.json")
         .await(ready);
 
-    function ready(error, grimentsStatic, resorts, country) {
+    function ready(error, grimentsStatic, resorts, country, topology) {
       if (error) throw error;
 
         griments = grimentsStatic[0];
@@ -43,15 +56,14 @@ var initMap = function() {
         
         var edgeArr = snowtypes.createEdgeArray(griments.edges, griments.vertices, projection);
        
-        // Draws the country lines
-        map.selectAll(".country")
-          .data(topojson.feature(country, country.objects.country).features)
+       map.selectAll(".contour")
+          .data(topojson.feature(topology, topology.objects.contours).features)
         .enter().append("path")
           .attr("class", "contour")
-          .attr("d", path)
-          .style("fill", "#DCEAF2")
-          .style("stroke", "black");
-
+          .attr("d", null_path)
+          .style("fill", function(d) { return color(d.id); })
+          .style("stroke", function(d) { return d3.hcl(color(d.id)).brighter(); });
+ 
         //Draws all the resort
         map.selectAll("resorts")
             .data(resorts).enter()
@@ -110,21 +122,21 @@ var initMap = function() {
                 op = (k == 80) ? 1 : 0;
                 map.selectAll(".grimentz")
                     .transition()
-                    .duration(750)
+                    .duration(600)
                     .style("opacity", op);
 
                 map.selectAll("line")
                     .transition()
-                    .duration(750)
+                    .duration(600)
                     .style("opacity", op-0.2);
 
                 map.selectAll(".resort")
                     .transition()
-                    .duration(750)
+                    .duration(600)
                     .style("opacity", function() {if(op){return 0} else{return 1} });
                 
                 map.transition()
-                  .duration(750)
+                  .duration(600)
                   .ease("cubic-in-out")
                   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
                   .style("stroke-width", 1.5 / k + "px");
@@ -134,7 +146,21 @@ var initMap = function() {
 }
 
 
+var initMapBox = function(toggleFocus) {
+  L.mapbox.accessToken = cred.map.access_token;
+  var map = L.map('map', {
+    zoomControl:false,
+    maxZoom: 8,
+    minZoom: 7
+  }).setView([47.1738, 8.4265],7);
+  map.setMinZoom = 7;
+  map.setMaxZoom = 8;
+  L.mapbox.styleLayer('mapbox://styles/palmn/cimuaw3qm007n8skoe0hgnki3').addTo(map);
+
+}
+
 module.exports['initMap'] = initMap;
+module.exports['initMapBox'] = initMapBox;
 
 
 

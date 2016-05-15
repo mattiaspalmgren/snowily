@@ -40,11 +40,12 @@ svg {
 
 #map {
 	height: 90%;
+	width: 850px
 	/*border-left: 1px solid gray;*/
 }
 
 .contour {
-  stroke-width: 0.5;
+  stroke-width: 0.01;
 }
 
 

@@ -10,7 +10,10 @@ var ReactDOM = require('react-dom');
 map = require('./map')
 
 
+// map.initMapBox();
 map.initMap();
+
+
 
 var ResortTable = React.createClass({
   render: function() {
