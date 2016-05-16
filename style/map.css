@@ -48,6 +48,17 @@ svg {
   stroke-width: 0.01;
 }
 
+.key {
+	font-size: 0.7em;
+}
 
+.key path {
+  display: none;
+}
+
+.key line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
 
 
