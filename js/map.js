@@ -3,8 +3,6 @@ var q = require('d3-queue');
 var topojson = require('topojson');
 var $ = require('jquery');
 snowtypes = require('./snowtypes');
-require('mapbox.js');
-cred = require('./config')
 
 var thresholds = [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000],
     contour;
@@ -121,11 +119,10 @@ var initMap = function() {
     q.queue()
         .defer(d3.json, "data/griments.json")
         .defer(d3.json, "data/resorts.json")
-        .defer(d3.json, "data/ch-country.json")
         .defer(d3.json, "data/ch-contours_newproj.json")
         .await(ready);
 
-    function ready(error, grimentsStatic, resorts, country, topology) {
+    function ready(error, grimentsStatic, resorts, topology) {
         if (error) throw error;
 
         griments = grimentsStatic[0];
@@ -147,7 +144,7 @@ var initMap = function() {
         map.selectAll("resorts")
               .data(resorts).enter()
               .append("rect")
-              .attr("class", "resort")
+              .attr("class", function(d) {return d.name})
               .attr("x", function (d) { return projection(d.lonLat)[0]; })
               .attr("y", function (d) { return projection(d.lonLat)[1]; })
               .attr("width", 10)
