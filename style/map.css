@@ -44,6 +44,11 @@ svg {
 	/*border-left: 1px solid gray;*/
 }
 
+#resort-table {
+	height: 90%;
+	overflow-y: scroll;
+}
+
 .contour {
   stroke-width: 0.01;
 }

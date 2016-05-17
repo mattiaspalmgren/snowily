@@ -10,6 +10,7 @@ var ReactDOM = require('react-dom');
 map = require('./map')
 
 map.initMap();
+
   
 var ResortRow = React.createClass({
   render: function() {
@@ -23,12 +24,16 @@ var ResortRow = React.createClass({
 var ResortList = React.createClass({
   render: function() {
     var rows = [];
+    var arr = [];
     this.props.resorts.forEach(function(resort) {
-      if(resort.name.indexOf(this.props.filterText) === -1) {
+      if(resort.name.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
         return;
       }
+      arr.push(resort);
       rows.push(<ResortRow resort={resort} key={resort.name} />);
     }.bind(this));
+
+    map.filterResorts(arr);
 
     return (
       <ul>{rows}</ul>
@@ -56,8 +61,7 @@ var SearchBar = React.createClass({
     );
   }
 });
-
-
+  
 var ResortTable = React.createClass({
   getInitialState: function() {
     return {
@@ -85,6 +89,7 @@ var ResortTable = React.createClass({
     );
   }
 });
+
 ReactDOM.render(
   <ResortTable/>,
   document.getElementById('resort-table')

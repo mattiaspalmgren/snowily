@@ -3,6 +3,7 @@ var q = require('d3-queue');
 var topojson = require('topojson');
 var $ = require('jquery');
 snowtypes = require('./snowtypes');
+data = require('./data');
 
 var thresholds = [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000],
     contour;
@@ -144,7 +145,7 @@ var initMap = function() {
         map.selectAll("resorts")
               .data(resorts).enter()
               .append("rect")
-              .attr("class", function(d) {return d.name})
+              .attr("class", function(d) {return ("id-" + d.id)})
               .attr("x", function (d) { return projection(d.lonLat)[0]; })
               .attr("y", function (d) { return projection(d.lonLat)[1]; })
               .attr("width", 10)
@@ -224,22 +225,28 @@ var initMap = function() {
     }
 }
 
+var allResorts = data.getResorts();
+var filterResorts = function (activeResorts) {
 
-var initMapBox = function(toggleFocus) {
-  L.mapbox.accessToken = cred.map.access_token;
-  var map = L.map('map', {
-    zoomControl:false,
-    maxZoom: 8,
-    minZoom: 7
-  }).setView([47.1738, 8.4265],7);
-  map.setMinZoom = 7;
-  map.setMaxZoom = 8;
-  L.mapbox.styleLayer('mapbox://styles/palmn/cimuaw3qm007n8skoe0hgnki3').addTo(map);
+    for (var i = 0; i < allResorts.length; i++) {
+      map.selectAll('.' + "id-" + allResorts[i].id)
+      .transition()
+      .duration(50)
+      .style("opacity", 0);
+    }
+     
+    for (var i = 0; i < activeResorts.length; i++) {
+      map.selectAll('.' + "id-" + activeResorts[i].id)
+      .transition()
+      .duration(50)
+      .style("opacity", 1);
+    }
 
 }
 
 module.exports['initMap'] = initMap;
-module.exports['initMapBox'] = initMapBox;
+module.exports['filterResorts'] = filterResorts;
+
 
 
 
