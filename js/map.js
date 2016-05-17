@@ -208,7 +208,7 @@ var initMap = function() {
                       .duration(600)
                       .style("opacity", op-0.2);
 
-                  map.selectAll(".resort")
+                  map.selectAll("[class^='id']")
                       .transition()
                       .duration(600)
                       .style("opacity", function() {if(op){return 0} else{return 1} });
