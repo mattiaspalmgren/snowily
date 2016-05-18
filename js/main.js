@@ -57,15 +57,18 @@ var SearchBar = React.createClass({
   },
   render: function() {
     return (
-      <form>
+    <div className="form-group has-feedback">
         <input 
-          type="text" 
-          placeholder="Search..." 
-          value={this.props.filterText}
-          ref="filterTextInput"
-          onChange={this.handleChange}
+                type="text" 
+                className="form-control" 
+                placeholder="Search" 
+                aria-describedby="basic-addon1"
+                value={this.props.filterText}
+                ref="filterTextInput"
+                onChange={this.handleChange}
         />
-      </form>
+        <i className="glyphicon glyphicon-search form-control-feedback"></i>
+    </div>
     );
   }
 });

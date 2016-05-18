@@ -19,6 +19,10 @@ svg {
 	border-radius: 3px;
 }
 
+input {
+	margin-bottom: 15px;
+}
+
 .container {
 	height: 100%;
 }
@@ -40,13 +44,12 @@ svg {
 
 #map {
 	height: 90%;
-	width: 850px
+	width: 800px
 	/*border-left: 1px solid gray;*/
 }
 
 #resort-table {
 	height: 90%;
-	overflow-y: scroll;
 }
 
 .contour {
@@ -74,6 +77,11 @@ svg {
 
 .badge:empty {
   display: block;
+}
+
+.list-group {
+	overflow-y: scroll;
+	height: 90%; 
 }
 
 
