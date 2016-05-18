@@ -8,6 +8,7 @@ var $ = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
 map = require('./map')
+snowtypes = require('./snowtypes')
 
 map.initMap();
 
@@ -18,8 +19,12 @@ var ResortRow = React.createClass({
   },
   render: function() {
     var name = this.props.resort.name;
+    // console.log(this.props.resort)
+    
     return (
-      <li onClick={this.handleClick.bind(null, this.props.resort)}>{name}</li>
+      <li className="list-group-item" onClick={this.handleClick.bind(null, this.props.resort)}>{name}
+        <span className="badge" style={{backgroundColor: this.props.resort.snowType.color}} ></span>
+      </li>
     )
   }
 });
@@ -39,7 +44,7 @@ var ResortList = React.createClass({
     map.filterResorts(arr);
 
     return (
-      <ul>{rows}</ul>
+      <ul className="list-group">{rows}</ul>
     );
   }
 });
@@ -80,6 +85,8 @@ var ResortTable = React.createClass({
   componentDidMount: function() {
     this.serverRequest = $.when($.ajax("/data/resorts.json")).then(function(response1)
     { 
+      var snowArr = snowtypes.getSnowtypes();
+      response1.forEach(function(resort){ resort.snowType = snowArr[Math.floor((Math.random() * snowArr.length))]});
       this.setState({resorts: response1})
     }.bind(this));
   },

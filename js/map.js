@@ -130,7 +130,6 @@ var initMap = function() {
         var griments = snowtypes.getResortWithSnowTypes(griments);
         var edgeArr = snowtypes.createEdgeArray(griments.edges, griments.vertices, projection);
         var snowArr = snowtypes.getSnowtypes();
-
         resorts.forEach(function(resort){ resort.snowType = snowArr[Math.floor((Math.random() * snowArr.length))]});
 
         map.selectAll(".contour")
