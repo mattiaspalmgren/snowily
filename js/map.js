@@ -177,53 +177,53 @@ var initMap = function() {
              .attr("width", 0.2)
              .attr("height", 0.2)
              .style("opacity", 0)
-             .on("click", clicked);
-
-
-              //Function to handle the zoom
-              function clicked(d) {
-                  var x, y, k, dur, op;
-                  
-                  if (d && centered !== d) {
-                      var centroid = projection(d.lonLat);
-                      x = centroid[0];
-                      y = centroid[1];
-                      k = 80;
-                      centered = d;
-                  } else {
-                      x = width / 2;
-                      y = height / 2;
-                      k = 1;
-                      centered = null;
-                  }
-
-                  op = (k == 80) ? 1 : 0;
-                  map.selectAll(".grimentz")
-                      .transition()
-                      .duration(600)
-                      .style("opacity", op);
-
-                  map.selectAll("line")
-                      .transition()
-                      .duration(600)
-                      .style("opacity", op-0.2);
-
-                  map.selectAll("[class^='id']")
-                      .transition()
-                      .duration(600)
-                      .style("opacity", function() {if(op){return 0} else{return 1} });
-                  
-                  map.transition()
-                    .duration(600)
-                    .ease("cubic-in-out")
-                    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-                    .style("stroke-width", 1.5 / k + "px");
-
-              };   
+             .on("click", clicked);  
 
               initAxis();     
     }
 }
+
+//Function to handle the zoom
+var clicked = function (d) {
+
+    var x, y, k, dur, op;
+    
+    if (d && centered !== d) {
+        var centroid = projection(d.lonLat);
+        x = centroid[0];
+        y = centroid[1];
+        k = 80;
+        centered = d;
+    } else {
+        x = width / 2;
+        y = height / 2;
+        k = 1;
+        centered = null;
+    }
+
+    op = (k == 80) ? 1 : 0;
+    map.selectAll(".grimentz")
+        .transition()
+        .duration(600)
+        .style("opacity", op);
+
+    map.selectAll("line")
+        .transition()
+        .duration(600)
+        .style("opacity", op-0.2);
+
+    map.selectAll("[class^='id']")
+        .transition()
+        .duration(600)
+        .style("opacity", function() {if(op){return 0} else{return 1} });
+    
+    map.transition()
+      .duration(600)
+      .ease("cubic-in-out")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      .style("stroke-width", 1.5 / k + "px");
+
+}; 
 
 var allResorts = data.getResorts();
 var filterResorts = function (activeResorts) {
@@ -246,6 +246,9 @@ var filterResorts = function (activeResorts) {
 
 module.exports['initMap'] = initMap;
 module.exports['filterResorts'] = filterResorts;
+module.exports['clicked'] = clicked;
+
+
 
 
 

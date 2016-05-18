@@ -13,10 +13,13 @@ map.initMap();
 
   
 var ResortRow = React.createClass({
+  handleClick: function(resort) {
+    map.clicked(resort);
+  },
   render: function() {
     var name = this.props.resort.name;
     return (
-      <li>{name}</li>
+      <li onClick={this.handleClick.bind(null, this.props.resort)}>{name}</li>
     )
   }
 });
