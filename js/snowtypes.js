@@ -1,4 +1,4 @@
-var snowtypes = [{"id":0, "name": "powder", "color": "#FCFFF5"}, {"id":1, "name": "crud", "color" : "#CCCFC6"}, {"id":2, "name": "crust", "color": "#EFECCA"}, {"id":3, "name": "slush", "color" : "#EFEC96"}];
+var snowtypes = [{"id":0, "name": "powder", "color": "#FCFFF5"}, {"id":1, "name": "crud", "color" : "#ABADA6"}, {"id":2, "name": "crust", "color": "#EFECCA"}, {"id":3, "name": "slush", "color" : "#EFEC96"}];
 // var snowtypes = [{"id":0, "name": "powder", "color": "#FCFFF5"}, {"id":1, "name": "crud", "color" : "#D1DBBD"}, {"id":2, "name": "crust", "color": "#91AA9D"}, {"id":3, "name": "slush", "color" : "#3E606F"}];
 
 function getResortWithSnowTypes(resort) {

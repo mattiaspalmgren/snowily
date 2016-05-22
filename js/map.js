@@ -36,7 +36,7 @@ var path = d3.geo.path()
         .projection(projection);
 
 var map = svg.append("g");
-
+var zoom = false;
 var initAxis = function() {
 
     var axisWidth = 310;
@@ -191,16 +191,18 @@ var clicked = function (d) {
         var centroid = projection(d.lonLat);
         x = centroid[0];
         y = centroid[1];
-        k = 80;
+        k = 50;
         centered = d;
+        zoom = true;
     } else {
         x = width / 2;
         y = height / 2;
         k = 1;
         centered = null;
+        zoom = false;
     }
 
-    op = (k == 80) ? 1 : 0;
+    op = (k == 50) ? 1 : 0;
     map.selectAll(".grimentz")
         .transition()
         .duration(600)
@@ -233,13 +235,15 @@ var filterResorts = function (activeResorts) {
       .duration(50)
       .style("opacity", 0);
     }
-     
+   
+   if(!zoom && activeResorts.length>0){
     for (var i = 0; i < activeResorts.length; i++) {
       map.selectAll('.' + "id-" + activeResorts[i].id)
       .transition()
       .duration(50)
       .style("opacity", 1);
     }
+   }  
 
 }
 

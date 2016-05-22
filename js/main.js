@@ -16,11 +16,11 @@ map.initMap();
 var ResortRow = React.createClass({
   handleClick: function(resort) {
     map.clicked(resort);
+    this.props.reset("");
+
   },
   render: function() {
     var name = this.props.resort.name;
-    // console.log(this.props.resort)
-    
     return (
       <li className="list-group-item" onClick={this.handleClick.bind(null, this.props.resort)}>{name}
         <span className="badge" style={{backgroundColor: this.props.resort.snowType.color}} ></span>
@@ -38,13 +38,13 @@ var ResortList = React.createClass({
         return;
       }
       arr.push(resort);
-      rows.push(<ResortRow resort={resort} key={resort.name} />);
+      rows.push(<ResortRow resort={resort} key={resort.name} reset={this.props.reset}/>);
     }.bind(this));
 
     map.filterResorts(arr);
 
     return (
-      <ul className="list-group">{rows}</ul>
+      <ul className="list-group test">{rows}</ul>
     );
   }
 });
@@ -77,7 +77,8 @@ var ResortTable = React.createClass({
   getInitialState: function() {
     return {
       resorts: [],
-      filterText: ''
+      filterText: '',
+      zoom: 0
     }
   },
   handleUserInput: function(filterText) {
@@ -97,7 +98,7 @@ var ResortTable = React.createClass({
     return (
       <div>
         <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput} />
-        <ResortList resorts={this.state.resorts} filterText={this.state.filterText}/>
+        <ResortList resorts={this.state.resorts} filterText={this.state.filterText} reset={this.handleUserInput}/>
       </div>
     );
   }
