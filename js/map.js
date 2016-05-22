@@ -191,7 +191,7 @@ var clicked = function (d) {
         var centroid = projection(d.lonLat);
         x = centroid[0];
         y = centroid[1];
-        k = 50;
+        k = 60;
         centered = d;
         zoom = true;
     } else {
@@ -202,7 +202,7 @@ var clicked = function (d) {
         zoom = false;
     }
 
-    op = (k == 50) ? 1 : 0;
+    op = (k == 60) ? 1 : 0;
     map.selectAll(".grimentz")
         .transition()
         .duration(600)
@@ -228,7 +228,6 @@ var clicked = function (d) {
 
 var allResorts = data.getResorts();
 var filterResorts = function (activeResorts) {
-
     for (var i = 0; i < allResorts.length; i++) {
       map.selectAll('.' + "id-" + allResorts[i].id)
       .transition()
@@ -244,7 +243,6 @@ var filterResorts = function (activeResorts) {
       .style("opacity", 1);
     }
    }  
-
 }
 
 module.exports['initMap'] = initMap;

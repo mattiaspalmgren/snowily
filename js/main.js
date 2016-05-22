@@ -15,12 +15,13 @@ map.initMap();
   
 var ResortRow = React.createClass({
   handleClick: function(resort) {
-    map.clicked(resort);
     this.props.reset("");
-
+    map.clicked(resort);
   },
   render: function() {
     var name = this.props.resort.name;
+    // console.log(this.props.resort)
+    
     return (
       <li className="list-group-item" onClick={this.handleClick.bind(null, this.props.resort)}>{name}
         <span className="badge" style={{backgroundColor: this.props.resort.snowType.color}} ></span>
@@ -30,6 +31,7 @@ var ResortRow = React.createClass({
 });
 
 var ResortList = React.createClass({
+
   render: function() {
     var rows = [];
     var arr = [];
@@ -77,8 +79,7 @@ var ResortTable = React.createClass({
   getInitialState: function() {
     return {
       resorts: [],
-      filterText: '',
-      zoom: 0
+      filterText: ''
     }
   },
   handleUserInput: function(filterText) {
