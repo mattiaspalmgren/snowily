@@ -120,7 +120,7 @@ var initMap = function() {
     q.queue()
         .defer(d3.json, "data/griments.json")
         .defer(d3.json, "data/resorts.json")
-        .defer(d3.json, "data/ch-contours_newproj.json")
+        .defer(d3.json, "data/ch-contours.json")
         .await(ready);
 
     function ready(error, grimentsStatic, resorts, topology) {

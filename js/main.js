@@ -16,12 +16,12 @@ map.initMap();
 var ResortRow = React.createClass({
   handleClick: function(resort) {
     this.props.reset("");
+    this.props.active = resort;
     map.clicked(resort);
   },
   render: function() {
     var name = this.props.resort.name;
-    // console.log(this.props.resort)
-    
+  
     return (
       <li className="list-group-item" onClick={this.handleClick.bind(null, this.props.resort)}>{name}
         <span className="badge" style={{backgroundColor: this.props.resort.snowType.color}} ></span>
@@ -74,6 +74,7 @@ var SearchBar = React.createClass({
     );
   }
 });
+
   
 var ResortTable = React.createClass({
   getInitialState: function() {
@@ -108,6 +109,7 @@ var ResortTable = React.createClass({
 ReactDOM.render(
   <ResortTable/>,
   document.getElementById('resort-table')
+
 );
 
 

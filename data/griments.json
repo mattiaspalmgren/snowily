@@ -1,0 +1,70 @@
+[
+	{
+		"name": "Grimentz",
+		"vertices":[
+			{
+				"name": "x1",
+				"lonLat": [7.573542,46.176173],
+				"height": 2277
+			},
+			{
+				"name": "x2",
+				"lonLat": [7.558393,46.180580],
+				"height": 2117
+			},
+			{
+				"name": "x3",
+				"lonLat": [7.552297,46.189306],
+				"height": 2427
+			},
+			{
+				"name": "x4",
+				"lonLat": [7.550315,46.174389],
+				"height": 2318
+			},
+			{
+				"name": "x5",
+				"lonLat": [7.522879,46.171040],
+				"height": 2871
+			},
+			{
+				"name": "x6",
+				"lonLat": [7.533057,46.182520],
+				"height": 2541
+			}
+		],
+		"edges" : [
+			{
+				"start" : "x1",
+				"end"	: "x2",
+				"face" : "west"
+			},
+			{
+				"start" : "x3",
+				"end"	: "x2",
+				"face" : "south"
+			},
+			{
+				"start" : "x4",
+				"end"	: "x2",
+				"face" : "north"
+			},
+			{
+				"start" : "x5",
+				"end"	: "x2",
+				"face" : "east"
+			},
+			{
+				"start" : "x5",
+				"end"	: "x6",
+				"face" : "north"
+			},
+			{
+				"start" : "x5",
+				"end"	: "x4",
+				"face" : "east"
+			}
+		]
+
+	}
+]

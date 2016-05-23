@@ -9,14 +9,14 @@
     "bootstrap": "^3.3.6",
     "browserify": "^13.0.0",
     "d3": "^3.5.16",
+    "d3-queue": "^2.0.3",
+    "express": "^4.13.4",
     "geojson": "^0.3.0",
     "jquery": "^2.2.1",
-    "leaflet": "^0.7.7",
-    "mapbox": "^1.0.0-beta",
-    "mapbox.js": "^2.4.0",
     "react": "^0.14.8",
     "react-bootstrap": "^0.28.5",
-    "react-dom": "^0.14.8"
+    "react-dom": "^0.14.8",
+    "topojson": "^1.6.26"
   },
   "devDependencies": {},
   "scripts": {
