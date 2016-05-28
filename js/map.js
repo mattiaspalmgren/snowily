@@ -59,7 +59,8 @@ var initAxis = function() {
           .attr("width", 40)
           .attr("height", 40)
           .style("fill", "white")
-          .style("fill-opacity", 0);
+          .style("fill-opacity", 0)
+          .on("click", clicked);
 
     backBtn.append("text")
       .attr("x", 40)           
