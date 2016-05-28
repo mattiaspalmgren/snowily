@@ -51,7 +51,7 @@ var initAxis = function() {
       .tickSize(10)
       .tickFormat(d3.format(".0f"));
 
-    var backBtn = svg.append("g")
+    var backBtn = svg.append("g");
     backBtn.append("rect")
           .attr("x", 20)
           .attr("y", 20)
