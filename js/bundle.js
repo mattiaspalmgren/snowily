@@ -163,6 +163,13 @@ var initAxis = function () {
 
   var xAxis = d3.svg.axis().scale(x).orient("bottom").tickSize(10).tickFormat(d3.format(".0f"));
 
+  var backBtn = svg.append("g");
+  backBtn.append("rect").attr("x", 20).attr("y", 20).attr("class", "back").attr("width", 40).attr("height", 40).style("fill", "white").style("fill-opacity", 0);
+
+  backBtn.append("text").attr("x", 40).attr("y", 40).attr("class", "back").attr("dy", ".35em").attr('font-family', 'FontAwesome').attr("text-anchor", "middle").text(function () {
+    return '\uf00d';
+  }).style("fill-opacity", 0).on("click", clicked);;
+
   var key = svg.append("g").attr("class", "key").attr("transform", "translate(" + (width - 320) + "," + (height - 50) + ")");
 
   key.append("rect").attr("x", -10).attr("y", -10).attr("width", axisWidth).attr("height", 40).style("fill", "white").style("fill-opacity", 0.5);
@@ -285,6 +292,14 @@ var clicked = function (d) {
   }
 
   op = k == 60 ? 1 : 0;
+  svg.selectAll(".back").transition().duration(600).style("fill-opacity", function () {
+    if (op == 0) {
+      return op;
+    } else {
+      return op - 0.3;
+    }
+  });
+
   map.selectAll(".grimentz").transition().duration(600).style("opacity", op);
 
   map.selectAll("line").transition().duration(600).style("opacity", op - 0.2);

@@ -51,6 +51,27 @@ var initAxis = function() {
       .tickSize(10)
       .tickFormat(d3.format(".0f"));
 
+    var backBtn = svg.append("g")
+    backBtn.append("rect")
+          .attr("x", 20)
+          .attr("y", 20)
+          .attr("class", "back")
+          .attr("width", 40)
+          .attr("height", 40)
+          .style("fill", "white")
+          .style("fill-opacity", 0);
+
+    backBtn.append("text")
+      .attr("x", 40)           
+      .attr("y", 40)
+      .attr("class", "back")           
+      .attr("dy", ".35em")
+      .attr('font-family', 'FontAwesome')           
+      .attr("text-anchor", "middle")  
+      .text(function() {return '\uf00d';})
+      .style("fill-opacity", 0)
+      .on("click", clicked); ;
+
     var key =  svg.append("g")
       .attr("class", "key")
       .attr("transform", "translate(" + (width - 320) + "," + (height - 50) + ")");
@@ -109,6 +130,8 @@ var initAxis = function() {
       .attr("dy", ".35em")           
       .attr("text-anchor", "middle")  
       .text(function(d) {return d.name})
+
+
 
     function getRect(className) {
       return type.select('.' + className);
@@ -178,7 +201,7 @@ var initMap = function() {
              .style("opacity", 0)
              .on("click", clicked);  
 
-              initAxis();     
+        initAxis();     
     }
 }
 
@@ -203,6 +226,11 @@ var clicked = function (d) {
     }
 
     op = (k == 60) ? 1 : 0;
+    svg.selectAll(".back")
+        .transition()
+        .duration(600)
+        .style("fill-opacity", function() { if(op == 0) {return op} else { return (op-0.3)}});
+
     map.selectAll(".grimentz")
         .transition()
         .duration(600)
