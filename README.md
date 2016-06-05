@@ -2,6 +2,8 @@
 
 A prototype/proof of concept of creative ski map. By combining height, location, weather and direction data, the applications tries to predict the the snow conditions at certain areas in the resort and from that prediction create a ski map, that colors the slopes according to snow conditions rather than difficulty level. The actual snow-type classification isn't implemented in this phase, but the colors is generated randomly just to present the interface.
 
+The resort-data have been manually gathered as a proof of concept only for one resort. The resort is named 'Grimentz', so that's the one you should browse in order to see the ski map.
+
 ## Start it
 [Install node](https://docs.npmjs.com/getting-started/installing-node) to be able to use npm (the node package manager).
 Then, to install all the dependencies and fire up the app, run:
