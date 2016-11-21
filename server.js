@@ -11,8 +11,4 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/topo', function(req, res) {
-    res.sendFile(__dirname + '/topo.html');
-});
-
 app.listen(8080);

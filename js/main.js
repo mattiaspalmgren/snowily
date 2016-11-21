@@ -31,10 +31,10 @@ var ResortRow = React.createClass({
 });
 
 var ResortList = React.createClass({
-
   render: function() {
     var rows = [];
     var arr = [];
+    // Filter or not depending on match
     this.props.resorts.forEach(function(resort) {
       if(resort.name.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
         return;
@@ -43,6 +43,7 @@ var ResortList = React.createClass({
       rows.push(<ResortRow resort={resort} key={resort.name} reset={this.props.reset}/>);
     }.bind(this));
 
+    // Trigger map filter aswell
     map.filterResorts(arr);
 
     return (
@@ -89,6 +90,7 @@ var ResortTable = React.createClass({
     });
   },
   componentDidMount: function() {
+    // Fetch resort data
     this.serverRequest = $.when($.ajax("/data/resorts.json")).then(function(response1)
     { 
       var snowArr = snowtypes.getSnowtypes();

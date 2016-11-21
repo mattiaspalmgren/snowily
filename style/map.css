@@ -59,6 +59,7 @@ input {
 
 #resort-table {
 	height: 90%;
+	overflow-y: hidden;
 }
 
 .contour {
@@ -90,7 +91,8 @@ input {
 
 .list-group {
 	overflow-y: scroll;
-	height: 90%; 
+	height: 100%; 
+	margin-bottom: 0;
 }
 
 .list-group-item:hover {

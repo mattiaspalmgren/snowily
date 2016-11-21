@@ -18,6 +18,7 @@ var width = $("#map").width(),
     height = $("#map").height(),
     centered;
 
+// To project the ski resort onto the map
 projection = d3.geo.albers()
     .rotate([0, 0])
     .center([8.72, 47])
@@ -25,6 +26,7 @@ projection = d3.geo.albers()
     .translate([960/2, 500/2])
     .precision(.1);
 
+// To use with the pre-projected heigt data
 var null_path = d3.geo.path()
   .projection(null);
 
@@ -37,10 +39,12 @@ var path = d3.geo.path()
 
 var map = svg.append("g");
 var zoom = false;
+
+// Init the both axises
 var initAxis = function() {
 
     var axisWidth = 310;
-  
+
     var x = d3.scale.linear()
       .domain([0, 4500])
       .range([0, 280]);
@@ -51,57 +55,60 @@ var initAxis = function() {
       .tickSize(10)
       .tickFormat(d3.format(".0f"));
 
+    // Button to close zoom
     var backBtn = svg.append("g");
     backBtn.append("rect")
-          .attr("x", 20)
-          .attr("y", 20)
-          .attr("class", "back")
-          .attr("width", 40)
-          .attr("height", 40)
-          .style("fill", "white")
-          .style("fill-opacity", 0)
-          .on("click", clicked);
+        .attr("x", 20)
+        .attr("y", 20)
+        .attr("class", "back")
+        .attr("width", 40)
+        .attr("height", 40)
+        .style("fill", "white")
+        .style("fill-opacity", 0)
+        .on("click", clicked);
 
     backBtn.append("text")
-      .attr("x", 40)           
-      .attr("y", 40)
-      .attr("class", "back")           
-      .attr("dy", ".35em")
-      .attr('font-family', 'FontAwesome')           
-      .attr("text-anchor", "middle")  
-      .text(function() {return '\uf00d';})
-      .style("fill-opacity", 0)
-      .on("click", clicked); ;
+        .attr("x", 40)           
+        .attr("y", 40)
+        .attr("class", "back")           
+        .attr("dy", ".35em")
+        .attr('font-family', 'FontAwesome')           
+        .attr("text-anchor", "middle")  
+        .text(function() {return '\uf00d';})
+        .style("fill-opacity", 0)
+        .on("click", clicked); 
 
     var key =  svg.append("g")
-      .attr("class", "key")
-      .attr("transform", "translate(" + (width - 320) + "," + (height - 50) + ")");
+        .attr("class", "key")
+        .attr("transform", "translate(" + (width - 320) + "," + (height - 50) + ")");
 
+    // Height axis
     key.append("rect")
-      .attr("x", -10)
-      .attr("y", -10)
-      .attr("width", axisWidth)
-      .attr("height", 40)
-      .style("fill", "white")
-      .style("fill-opacity", 0.5)
+        .attr("x", -10)
+        .attr("y", -10)
+        .attr("width", axisWidth)
+        .attr("height", 40)
+        .style("fill", "white")
+        .style("fill-opacity", 0.5)
 
     key.selectAll(".band")
-      .data(d3.pairs(x.ticks(10)))
-    .enter().append("rect")
-      .attr("class", "band")
-      .attr("height", 8)
-      .attr("x", function(d) { return x(d[0]); })
-      .attr("width", function(d) { return x(d[1]) - x(d[0]); })
-      .style("fill", function(d) { return color(d[0]); });
+        .data(d3.pairs(x.ticks(10)))
+        .enter().append("rect")
+        .attr("class", "band")
+        .attr("height", 8)
+        .attr("x", function(d) { return x(d[0]); })
+        .attr("width", function(d) { return x(d[1]) - x(d[0]); })
+        .style("fill", function(d) { return color(d[0]); });
 
     key.call(xAxis);
 
-
+    // In order to layout right
     var margin = 5;
     var padding = 10;
     var snows = snowtypes.getSnowtypes().reverse(); 
     var rectW = (axisWidth-2*padding-(3*margin))/4;
 
+    // Snowtypes axis
     var type =  svg.append("g")
       .attr("class", "type")
       .attr("transform", "translate(" + (width - 320) + "," + (height - 90) + ")");
@@ -114,6 +121,7 @@ var initAxis = function() {
       .style("fill", "white")
       .style("fill-opacity", 0.5);
 
+    // Snowtype colored boxes
     type.selectAll(".type")
       .data(snows).enter()
       .append("rect")
@@ -123,86 +131,88 @@ var initAxis = function() {
       .attr("width", rectW)
       .attr("fill", function(d) {return d.color});
 
+    // Snowtype text boxes
     type.selectAll(".text")
       .data(snows).enter()
       .append("text")
-      .attr("x", function(d) {return d.id*(margin+rectW)+rectW/2})           // set x position of left side of text
+      .attr("x", function(d) {return d.id*(margin+rectW)+rectW/2})          
       .attr("y", 15)           
       .attr("dy", ".35em")           
       .attr("text-anchor", "middle")  
       .text(function(d) {return d.name})
-
-
 
     function getRect(className) {
       return type.select('.' + className);
     }
 }
 
+// Init the actual map
 var initMap = function() {
-
     q.queue()
         .defer(d3.json, "data/griments.json")
         .defer(d3.json, "data/resorts.json")
         .defer(d3.json, "data/ch-contours.json")
         .await(ready);
 
+    // Fetch data
     function ready(error, grimentsStatic, resorts, topology) {
-        if (error) throw error;
+      if (error) throw error;
 
-        griments = grimentsStatic[0];
-        var griments = snowtypes.getResortWithSnowTypes(griments);
-        var edgeArr = snowtypes.createEdgeArray(griments.edges, griments.vertices, projection);
-        var snowArr = snowtypes.getSnowtypes();
-        resorts.forEach(function(resort){ resort.snowType = snowArr[Math.floor((Math.random() * snowArr.length))]});
+      // Pre-setup manual added resort
+      griments = grimentsStatic[0];
+      var griments = snowtypes.getResortWithSnowTypes(griments);
+      var edgeArr = snowtypes.createEdgeArray(griments.edges, griments.vertices, projection);
+      var snowArr = snowtypes.getSnowtypes();
+      resorts.forEach(function(resort){ resort.snowType = snowArr[Math.floor((Math.random() * snowArr.length))]});
 
-        map.selectAll(".contour")
-            .data(topojson.feature(topology, topology.objects.contours).features)
+      // Draw contours
+      map.selectAll(".contour")
+          .data(topojson.feature(topology, topology.objects.contours).features)
           .enter().append("path")
-            .attr("class", "contour")
-            .attr("d", null_path)
-            .style("fill", function(d) { return color(d.id); })
-            .style("stroke", function(d) { return d3.hcl(color(d.id)).brighter(); });
+          .attr("class", "contour")
+          .attr("d", null_path)
+          .style("fill", function(d) { return color(d.id); })
+          .style("stroke", function(d) { return d3.hcl(color(d.id)).brighter(); });
 
-          //Draws all the resort
-        map.selectAll("resorts")
-              .data(resorts).enter()
-              .append("rect")
-              .attr("class", function(d) {return ("id-" + d.id)})
-              .attr("x", function (d) { return projection(d.lonLat)[0]; })
-              .attr("y", function (d) { return projection(d.lonLat)[1]; })
-              .attr("width", 10)
-              .attr("height", 10)
-              .attr("fill", function(d) {return d.snowType.color})
-              .on("click", clicked);
+      //Draws all the resort
+      map.selectAll("resorts")
+            .data(resorts).enter()
+            .append("rect")
+            .attr("class", function(d) {return ("id-" + d.id)})
+            .attr("x", function (d) { return projection(d.lonLat)[0]; })
+            .attr("y", function (d) { return projection(d.lonLat)[1]; })
+            .attr("width", 10)
+            .attr("height", 10)
+            .attr("fill", function(d) {return d.snowType.color})
+            .on("click", clicked);
 
-          //Draws the snowareas in forms of lines for Griments
-        map.selectAll("line")
-              .data(edgeArr)
-              .enter()
-              .append("line")
-              .attr("x1", function(d) { return d.start[0]})   
-              .attr("y1", function(d) { return d.start[1]})   
-              .attr("x2", function(d) { return d.end[0]})     
-              .attr("y2", function(d) { return d.end[1]})
-              .attr("stroke-width", 0.5)
-              .attr("stroke", function(d) {return d3.rgb(d.snow.color).brighter(0.5)})
-              .style("opacity", 0);
+      //Draws the snowareas in forms of lines for Griments
+      map.selectAll("line")
+            .data(edgeArr)
+            .enter()
+            .append("line")
+            .attr("x1", function(d) { return d.start[0]})   
+            .attr("y1", function(d) { return d.start[1]})   
+            .attr("x2", function(d) { return d.end[0]})     
+            .attr("y2", function(d) { return d.end[1]})
+            .attr("stroke-width", 0.5)
+            .attr("stroke", function(d) {return d3.rgb(d.snow.color).brighter(0.5)})
+            .style("opacity", 0);
 
-          //Draws the vertices for griments
-        map.selectAll("griments")
-             .data(griments.vertices).enter()
-             .append("rect")
-             .attr("class", "grimentz")
-             .attr("x", function (d) { return projection(d.lonLat)[0]-0.0625; })
-             .attr("y", function (d) { return projection(d.lonLat)[1]-0.0625; })
-             .attr("fill", function (d) { return d.snow.color})
-             .attr("width", 0.2)
-             .attr("height", 0.2)
-             .style("opacity", 0)
-             .on("click", clicked);  
+      //Draws the vertices for griments
+      map.selectAll("griments")
+           .data(griments.vertices).enter()
+           .append("rect")
+           .attr("class", "grimentz")
+           .attr("x", function (d) { return projection(d.lonLat)[0]-0.0625; })
+           .attr("y", function (d) { return projection(d.lonLat)[1]-0.0625; })
+           .attr("fill", function (d) { return d.snow.color})
+           .attr("width", 0.2)
+           .attr("height", 0.2)
+           .style("opacity", 0)
+           .on("click", clicked);  
 
-        initAxis();     
+      initAxis();     
     }
 }
 
@@ -211,6 +221,7 @@ var clicked = function (d) {
 
     var x, y, k, dur, op;
     
+    // If already zoomed or not, setting up attributes
     if (d && centered !== d) {
         var centroid = projection(d.lonLat);
         x = centroid[0];
@@ -227,6 +238,7 @@ var clicked = function (d) {
     }
 
     op = (k == 60) ? 1 : 0;
+    // Toggle on and off the consequences of zoom
     svg.selectAll(".back")
         .transition()
         .duration(600)
@@ -255,6 +267,7 @@ var clicked = function (d) {
 
 }; 
 
+// To be able to filter map along with list
 var allResorts = data.getResorts();
 var filterResorts = function (activeResorts) {
     for (var i = 0; i < allResorts.length; i++) {
